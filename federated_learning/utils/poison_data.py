@@ -25,7 +25,11 @@ def poison_data(logger, distributed_dataset, num_workers, poisoned_worker_ids, r
 
     for worker_idx in range(num_workers):
         if worker_idx in poisoned_worker_ids:
+            print("开始对数据进行投毒处理了")
+            print(replacement_method)
+            print("原始的标签",distributed_dataset[worker_idx][1])
             poisoned_dataset.append(apply_class_label_replacement(distributed_dataset[worker_idx][0], distributed_dataset[worker_idx][1], replacement_method))
+            print("投毒之后的标签",poisoned_dataset[len(poisoned_dataset)-1][1])
         else:
             poisoned_dataset.append(distributed_dataset[worker_idx])
 
